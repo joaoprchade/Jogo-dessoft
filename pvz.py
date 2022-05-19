@@ -39,7 +39,7 @@ l5 = 330
 
 spawns = [l1,l2,l3,l4,l5]
 
-zumbi_x = 635
+zumbi_x = 800
 zumbi_y = random.choice(spawns)
 
 
