@@ -1,6 +1,7 @@
 # ===== Inicialização =====
 # ----- Importa e inicia pacotes
 import pygame
+import random
 
 pygame.init()
 
@@ -24,20 +25,22 @@ ZUMBI_HEIGHT = 225*0.5
 zumbi_img = pygame.image.load('Jogo-dessoft/assets/Imagens/zumbi.png').convert()
 zumbi_img_small = pygame.transform.scale(zumbi_img, (ZUMBI_WIDTH, ZUMBI_HEIGHT))
 
-zumbi_x = 635
-zumbi_y = 330
+
 
 
 zumbi_speedx = 0.01
 
-#spawns (linha1,linha2...) precisa descobrir a altura de cada uma!!
-l1 = 0
-l2 = 0
-l3 = 0
-l4 = 0
-l5 = 0
+#spawns (linha1,linha2...)! em y !!
+l1 = 35
+l2 = 115
+l3 = 185
+l4 = 255
+l5 = 330
 
 spawns = [l1,l2,l3,l4,l5]
+
+zumbi_x = 635
+zumbi_y = random.choice(spawns)
 
 
 
