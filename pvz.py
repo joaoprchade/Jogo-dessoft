@@ -25,7 +25,20 @@ zumbi_img = pygame.image.load('Jogo-dessoft/assets/Imagens/zumbi.png').convert()
 zumbi_img_small = pygame.transform.scale(zumbi_img, (ZUMBI_WIDTH, ZUMBI_HEIGHT))
 
 zumbi_x = 635
-zumbi_y = 380
+zumbi_y = 330
+
+
+zumbi_speedx = 0.01
+
+#spawns (linha1,linha2...) precisa descobrir a altura de cada uma!!
+l1 = 0
+l2 = 0
+l3 = 0
+l4 = 0
+l5 = 0
+
+spawns = [l1,l2,l3,l4,l5]
+
 
 
 
@@ -37,8 +50,12 @@ while game:
         # ----- Verifica consequências
         if event.type == pygame.QUIT:
             game = False
+    zumbi_x -= zumbi_speedx
 
+    #if zumbi_x < 10:
+        #print("Os zumbis devoraram seus miólos")
     # ----- Gera saídas
+
     #window.fill((0, 0, 0))  # Preenche com a cor branca
     window.blit(image, (0, 0))
     window.blit(zumbi_img_small, (zumbi_x, zumbi_y))
