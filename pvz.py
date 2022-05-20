@@ -16,26 +16,26 @@ pygame.display.set_caption('Lsvmsss')
 game = True
 
 # ----- Inicia assets
-mapa_img = pygame.image.load('Jogo-dessoft/assets/Imagens/mapa.jpg').convert()
+mapa_img = pygame.image.load('mapa.jpg').convert()
 image = pygame.transform.scale(mapa_img, (WIDTH, HEIGHT))
 
 #imagem do zumbi
 ZUMBI_WIDTH = 225*0.5
 ZUMBI_HEIGHT = 225*0.5
-zumbi_img = pygame.image.load('Jogo-dessoft/assets/Imagens/zumbi.png').convert()
+zumbi_img = pygame.image.load('zumbi.png').convert()
 zumbi_img_small = pygame.transform.scale(zumbi_img, (ZUMBI_WIDTH, ZUMBI_HEIGHT))
 
 SUN_WIDTH = 225*0.2
 SUN_HEIGHT = 225*0.2
-sun_img = pygame.image.load('Jogo-dessoft/assets/Imagens/sol.png').convert()
+sun_img = pygame.image.load('sol.png').convert()
 sun_img_small = pygame.transform.scale(sun_img, (SUN_WIDTH, SUN_HEIGHT))
 
 
 
 
 
-zumbi_speedx = 0.01
-sol_speed = 0.01
+zumbi_speedx = 0.5
+sol_speed = 0.5
 
 #spawns (linha1,linha2...)! em y !!
 l1 = 35
