@@ -38,6 +38,30 @@ class zumbis(pygame.sprite.Sprite):
         # Atualizando a posição do zumbi
         self.rect.x -= self.speedx
         self.rect.y += self.speedy
+
+class sun(pygame.sprite.Sprite):
+    def __init__(self, img):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = random.choice(spawns_s)
+        self.rect.y = 00
+        self.speedx = 0
+        self.speedy = 2
+
+
+    def update(self):
+        # Atualizando a posição do sol
+        self.rect.x -= self.speedx
+        self.rect.y += self.speedy
+        if self.rect.y > 300 :
+            self.speedy = 0
+            self.speedx = 0
+        
+
+
 game = True
         
         
@@ -49,10 +73,11 @@ ZUMBI_HEIGHT = 225*0.5
 zumbi_img = pygame.image.load('zumbi.png').convert_alpha()
 zumbi_img = pygame.transform.scale(zumbi_img, (ZUMBI_WIDTH, ZUMBI_HEIGHT))
 
+#sol
 SUN_WIDTH = 225*0.2
 SUN_HEIGHT = 225*0.2
 sun_img = pygame.image.load('sol.png').convert_alpha()
-sun_img_small = pygame.transform.scale(sun_img, (SUN_WIDTH, SUN_HEIGHT))
+sun_img = pygame.transform.scale(sun_img, (SUN_WIDTH, SUN_HEIGHT))
 
 
 
@@ -91,7 +116,14 @@ for i in range (10):
     zumbi = zumbis(zumbi_img)
     zombies.add(zumbi)
 
-    
+# Criando grupo de sois 
+suns = pygame.sprite.Group()
+for i in range (10):
+    sol = sun(sun_img)
+    suns.add(sol)
+
+
+
 # ===== Loop principal =====
 while game:
     clock.tick(FPS)
@@ -103,17 +135,18 @@ while game:
 
     # atualiza a posição dos zumbis
     zombies.update()
-    sol_y += sol_speed
-    if sol_y > 300:
-        sol_speed = 0
+    suns.update()
+    
     
     # ----- Gera saídas
 
-    #faz o mapa (o mapa aparece em 0,0, os zumbis nas coordenadas rect(atualizado com o handout de classes) )
+    #faz o mapa
     window.blit(image, (0, 0)) #mapa
+    
+    #desenha os elementos
     zombies.draw(window)
 
-    window.blit(sun_img_small, (sol_x, sol_y)) #sol
+    suns.draw(window)
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
