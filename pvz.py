@@ -20,6 +20,28 @@ game = True
 mapa_img = pygame.image.load('mapa.jpg').convert()
 image = pygame.transform.scale(mapa_img, (WIDTH, HEIGHT))
 
+
+class zumbis(pygame.sprite.Sprite):
+    def __init__(self, img):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = 800
+        self.rect.y = random.choice(spawns_z)
+        self.speedx = 1
+        self.speedy = 0
+
+
+    def update(self):
+        # Atualizando a posição do zumbi
+        self.rect.x -= self.speedx
+        self.rect.y += self.speedy
+        
+        
+
+
 #imagem do zumbi
 ZUMBI_WIDTH = 225*0.5
 ZUMBI_HEIGHT = 225*0.5
@@ -35,7 +57,7 @@ sun_img_small = pygame.transform.scale(sun_img, (SUN_WIDTH, SUN_HEIGHT))
 
 
 
-zumbi_speedx = 1
+
 sol_speed = 2
 
 #spawns (linha1,linha2...)! em y !!
@@ -50,17 +72,21 @@ spawns_z = [l1,l2,l3,l4,l5]
 #spawns dos sois 
 spawns_s = [60, 60*2, 60*3, 60*4 , 60*5 , 60*6, 60*7 , 60*8, 60*9, 600 ]
 
-zumbi_x = 800
-zumbi_y = random.choice(spawns_z)
+
 
 sol_y = - 10
 sol_x = random.choice(spawns_s)
 
 
 
-
+#define os fps
 clock = pygame.time.Clock()
 FPS = 60
+
+
+# Criando dois zumbis
+zumbi1 = zumbis(zumbi_img)
+zumbi2 = zumbis(zumbi_img) 
 # ===== Loop principal =====
 while game:
     clock.tick(FPS)
@@ -69,17 +95,21 @@ while game:
         # ----- Verifica consequências
         if event.type == pygame.QUIT:
             game = False
-    zumbi_x -= zumbi_speedx
+
+    # atualiza a posição dos zumbis
+    zumbi1.update()
+    zumbi2.update()
     sol_y += sol_speed
     if sol_y > 300:
         sol_speed = 0
-    #if zumbi_x < 10:
-        #print("Os zumbis devoraram seus miólos")
+    
     # ----- Gera saídas
 
-    #faz o mapa (o mapa aparece em 0,0, o zumbi nas coordenadas zumbi_x e zumbi_y)
+    #faz o mapa (o mapa aparece em 0,0, os zumbis nas coordenadas rect(atualizado com o handout de classes) )
     window.blit(image, (0, 0)) #mapa
-    window.blit(zumbi_img_small, (zumbi_x, zumbi_y)) #zumbi
+    window.blit(zumbi_img_small, (zumbi1.rect)) #zumbi1
+    window.blit(zumbi_img_small, (zumbi2.rect)) #zumbi2
+
     window.blit(sun_img_small, (sol_x, sol_y)) #sol
 
     # ----- Atualiza estado do jogo
