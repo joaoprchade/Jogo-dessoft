@@ -38,6 +38,7 @@ class zumbis(pygame.sprite.Sprite):
         # Atualizando a posição do zumbi
         self.rect.x -= self.speedx
         self.rect.y += self.speedy
+game = True
         
         
 
@@ -46,7 +47,7 @@ class zumbis(pygame.sprite.Sprite):
 ZUMBI_WIDTH = 225*0.5
 ZUMBI_HEIGHT = 225*0.5
 zumbi_img = pygame.image.load('zumbi.png').convert_alpha()
-zumbi_img_small = pygame.transform.scale(zumbi_img, (ZUMBI_WIDTH, ZUMBI_HEIGHT))
+zumbi_img = pygame.transform.scale(zumbi_img, (ZUMBI_WIDTH, ZUMBI_HEIGHT))
 
 SUN_WIDTH = 225*0.2
 SUN_HEIGHT = 225*0.2
@@ -81,12 +82,16 @@ sol_x = random.choice(spawns_s)
 
 #define os fps
 clock = pygame.time.Clock()
-FPS = 60
+FPS = 30
 
 
-# Criando dois zumbis
-zumbi1 = zumbis(zumbi_img)
-zumbi2 = zumbis(zumbi_img) 
+# Criando grupo de zumbis
+zombies = pygame.sprite.Group()
+for i in range (10):
+    zumbi = zumbis(zumbi_img)
+    zombies.add(zumbi)
+
+    
 # ===== Loop principal =====
 while game:
     clock.tick(FPS)
@@ -97,8 +102,7 @@ while game:
             game = False
 
     # atualiza a posição dos zumbis
-    zumbi1.update()
-    zumbi2.update()
+    zombies.update()
     sol_y += sol_speed
     if sol_y > 300:
         sol_speed = 0
@@ -107,8 +111,7 @@ while game:
 
     #faz o mapa (o mapa aparece em 0,0, os zumbis nas coordenadas rect(atualizado com o handout de classes) )
     window.blit(image, (0, 0)) #mapa
-    window.blit(zumbi_img_small, (zumbi1.rect)) #zumbi1
-    window.blit(zumbi_img_small, (zumbi2.rect)) #zumbi2
+    zombies.draw(window)
 
     window.blit(sun_img_small, (sol_x, sol_y)) #sol
 
