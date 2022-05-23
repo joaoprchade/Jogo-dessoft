@@ -23,20 +23,20 @@ image = pygame.transform.scale(mapa_img, (WIDTH, HEIGHT))
 #imagem do zumbi
 ZUMBI_WIDTH = 225*0.5
 ZUMBI_HEIGHT = 225*0.5
-zumbi_img = pygame.image.load('zumbi.png').convert()
+zumbi_img = pygame.image.load('zumbi.png').convert_alpha()
 zumbi_img_small = pygame.transform.scale(zumbi_img, (ZUMBI_WIDTH, ZUMBI_HEIGHT))
 
 SUN_WIDTH = 225*0.2
 SUN_HEIGHT = 225*0.2
-sun_img = pygame.image.load('sol.png').convert()
+sun_img = pygame.image.load('sol.png').convert_alpha()
 sun_img_small = pygame.transform.scale(sun_img, (SUN_WIDTH, SUN_HEIGHT))
 
 
 
 
 
-zumbi_speedx = 0.5
-sol_speed = 0.5
+zumbi_speedx = 1
+sol_speed = 2
 
 #spawns (linha1,linha2...)! em y !!
 l1 = 35
@@ -59,9 +59,11 @@ sol_x = random.choice(spawns_s)
 
 
 
-
+clock = pygame.time.Clock()
+FPS = 60
 # ===== Loop principal =====
 while game:
+    clock.tick(FPS)
     # ----- Trata eventos
     for event in pygame.event.get():
         # ----- Verifica consequências
