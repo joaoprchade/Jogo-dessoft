@@ -89,14 +89,14 @@ class sun(pygame.sprite.Sprite):
         self.rect.x = random.choice(spawns_s)
         self.rect.y = 0
         self.speedx = 0
-        self.speedy = 2
+        self.speedy = random.randint(1,6)
 
 
     def update(self):
         # Atualizando a posição do sol
         self.rect.x -= self.speedx
         self.rect.y += self.speedy
-        if self.rect.y > 300 :
+        if self.rect.y > random.randint(150,600) :
             self.speedy = 0
             self.speedx = 0
 
