@@ -13,31 +13,47 @@ HEIGHT = 380*1.3
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Lsvmsss')
 
-
+assets = {}
 # ----- Inicia estruturas de dados
 game = True
 
 # ----- Inicia assets
-mapa_img = pygame.image.load('mapa.jpg').convert()
-image = pygame.transform.scale(mapa_img, (WIDTH, HEIGHT))
+assets['image'] = pygame.image.load('mapa.jpg').convert()
+assets['image'] = pygame.transform.scale(assets['image'], (WIDTH, HEIGHT))
 
 #imagem do zumbi
 ZUMBI_WIDTH = 225*0.5
 ZUMBI_HEIGHT = 225*0.5
-zumbi_img = pygame.image.load('zumbi.png').convert_alpha()
-zumbi_img = pygame.transform.scale(zumbi_img, (ZUMBI_WIDTH, ZUMBI_HEIGHT))
+assets['zumbi_img'] = pygame.image.load('zumbi.png').convert_alpha()
+assets['zumbi_img'] = pygame.transform.scale(assets['zumbi_img'], (ZUMBI_WIDTH, ZUMBI_HEIGHT))
 
 #planta e tiro
 PLANT_WIDHT = 55
 PLANT_HEIGHT = 55
 
-planta_img = pygame.image.load('planta.png').convert_alpha()
-planta_img = pygame.transform.scale(planta_img, (PLANT_WIDHT, PLANT_HEIGHT))
-bullet_img = pygame.image.load('tiro.png').convert_alpha()
+assets['planta_img'] = pygame.image.load('planta.png').convert_alpha()
+assets['planta_img'] = pygame.transform.scale(assets['planta_img'] , (PLANT_WIDHT, PLANT_HEIGHT))
+assets['bullet_img'] = pygame.image.load('tiro.png').convert_alpha()
+
+dance = []
+for i in range(12):
+    # Os arquivos de animação são numerados de 00 a 12
+    filename = 'Peashooter_{}.png'.format(i)
+    img = pygame.image.load(filename).convert()
+    img = pygame.transform.scale(img, (32, 32))
+    dance.append(img)
+    assets['dance'] = dance
+
+
+
+
+
+
 
 #muisc
 pygame.mixer.music.load('theme.mp3')
-pygame.mixer.music.set_volume(0.4)
+pygame.mixer.music.set_volume(0.2)
+assets['hit_sound'] = pygame.mixer.Sound('hit.mp3')
 #sol
 SUN_WIDTH = 225*0.2
 SUN_HEIGHT = 225*0.2
@@ -130,7 +146,7 @@ class Bullet(pygame.sprite.Sprite):
         # Coloca no lugar inicial definido em x, y do constutor
         self.rect.centery = centery - 16
         self.rect.right = right
-        self.speedx = 5  # Velocidade fixa para direita
+        self.speedx = 10  # Velocidade fixa para direita
 
     def update(self):
         # A bala só se move no eixo x
@@ -179,7 +195,7 @@ all_sprites = pygame.sprite.Group()
 all_bullets = pygame.sprite.Group()
 
 #criando a planta
-player = plantas(planta_img, all_sprites, all_bullets, bullet_img)
+player = plantas(assets['planta_img'], all_sprites, all_bullets, assets['bullet_img'])
 all_sprites.add(player)
 
 
@@ -187,7 +203,7 @@ all_sprites.add(player)
 # Criando grupo de zumbis
 zombies = pygame.sprite.Group()
 for i in range (10):
-    zumbi = zumbis(zumbi_img)
+    zumbi = zumbis(assets['zumbi_img'])
     all_sprites.add(zumbi)
     zombies.add(zumbi)
 
@@ -229,6 +245,12 @@ while game:
                 player.speedy -= 8
 
     hs = pygame.sprite.groupcollide(zombies, all_bullets, True, True) 
+    for kills in hs: # As chaves são os elementos do primeiro grupo (meteoros) que colidiram com alguma bala
+        # O meteoro e destruido e precisa ser recriado
+        assets['hit_sound'].play()
+        
+
+
     hits = pygame.sprite.spritecollide(player, zombies, True)
     # atualiza a posição dos zumbis
     
@@ -240,7 +262,7 @@ while game:
     # ----- Gera saídas
 
     #faz o mapa
-    window.blit(image, (0, 0)) #mapa
+    window.blit(assets['image'], (0, 0)) #mapa
     
     #desenha os elementos
     all_sprites.draw(window)
@@ -248,7 +270,7 @@ while game:
 
     
 
-    hits = pygame.sprite.spritecollide(player, zombies, True)
+    
     
     
     suns.draw(window)
