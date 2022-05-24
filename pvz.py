@@ -5,6 +5,7 @@ import pygame
 import random
 
 pygame.init()
+pygame.mixer.init()
 
 # ----- Gera tela principal
 WIDTH = 635*1.3
@@ -34,7 +35,9 @@ planta_img = pygame.image.load('planta.png').convert_alpha()
 planta_img = pygame.transform.scale(planta_img, (PLANT_WIDHT, PLANT_HEIGHT))
 bullet_img = pygame.image.load('tiro.png').convert_alpha()
 
-
+#muisc
+pygame.mixer.music.load('theme.mp3')
+pygame.mixer.music.set_volume(0.4)
 #sol
 SUN_WIDTH = 225*0.2
 SUN_HEIGHT = 225*0.2
@@ -200,6 +203,7 @@ for i in range (10):
 
 
 # ===== Loop principal =====
+pygame.mixer.music.play(loops=-1)
 while game:
     clock.tick(FPS)
     # ----- Trata eventos
@@ -224,11 +228,12 @@ while game:
             if event.key == pygame.K_DOWN:
                 player.speedy -= 8
 
-        
-
+    hs = pygame.sprite.groupcollide(zombies, all_bullets, True, True) 
+    hits = pygame.sprite.spritecollide(player, zombies, True)
     # atualiza a posição dos zumbis
     
     suns.update()
+    all_sprites.update()
     
     
     
@@ -239,9 +244,12 @@ while game:
     
     #desenha os elementos
     all_sprites.draw(window)
-    all_sprites.update()
+    
+
+    
 
     hits = pygame.sprite.spritecollide(player, zombies, True)
+    
     
     suns.draw(window)
 
