@@ -78,6 +78,12 @@ class zumbis(pygame.sprite.Sprite):
         # Atualizando a posição do zumbi
         self.rect.x -= self.speedx
         self.rect.y += self.speedy
+        if self.rect.x < 0:
+            self.rect.x = 800
+            self.rect.y = random.choice(spawns_z)
+            self.speedx = random.randint(1,10)
+            self.speedy = 0
+
 
 class sun(pygame.sprite.Sprite):
     def __init__(self, img):
@@ -248,6 +254,8 @@ while game:
     for kills in hs: # As chaves são os elementos do primeiro grupo (meteoros) que colidiram com alguma bala
         # O meteoro e destruido e precisa ser recriado
         assets['hit_sound'].play()
+
+
         
 
 
