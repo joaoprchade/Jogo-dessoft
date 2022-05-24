@@ -202,7 +202,7 @@ for i in range (10):
 
 
 
-# ===== Loop principal =====
+# ===== Loop principal ======
 pygame.mixer.music.play(loops=-1)
 while game:
     clock.tick(FPS)
