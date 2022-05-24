@@ -180,10 +180,10 @@ l4 = 255
 l5 = 330
 spawns_z = [l1,l2,l3,l4,l5]
 
-#spawns dos sois 
-spawns_s = [60, 60*2, 60*3, 60*4 , 60*5 , 60*6, 60*7 , 60*8, 60*9, 600 ]
+spawns_s = [60, 60*2, 60*3, 60*4, 60*5 , 60*6, 60*7, 60*8, 60*9, 600]
 sol_y = - 10
 sol_x = random.choice(spawns_s)
+
 
 
 
