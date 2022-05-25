@@ -70,7 +70,7 @@ class zumbis(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 1800
         self.rect.y = random.choice(spawns_z)
-        self.speedx = random.randint(1,10)
+        self.speedx = random.randint(1,6)
         self.speedy = 0
 
         # animaçao zumbis
@@ -109,7 +109,7 @@ class zumbis(pygame.sprite.Sprite):
         if self.rect.x < 0:
             self.rect.x = 800
             self.rect.y = random.choice(spawns_z)
-            self.speedx = random.randint(1,10)
+            self.speedx = random.randint(3,10)
             self.speedy = 0
 
         self.current_sprite += 1
@@ -131,14 +131,47 @@ class sun(pygame.sprite.Sprite):
         self.speedx = 0
         self.speedy = random.randint(1,6)
 
+        self.sprites = []
+        self.sprites.append(pygame.image.load('Sun_0.png'))
+        self.sprites.append(pygame.image.load('Sun_1.png'))
+        self.sprites.append(pygame.image.load('Sun_2.png'))
+        self.sprites.append(pygame.image.load('Sun_3.png'))
+        self.sprites.append(pygame.image.load('Sun_4.png'))
+        self.sprites.append(pygame.image.load('Sun_5.png'))
+        self.sprites.append(pygame.image.load('Sun_6.png'))
+        self.sprites.append(pygame.image.load('Sun_7.png'))
+        self.sprites.append(pygame.image.load('Sun_8.png'))
+        self.sprites.append(pygame.image.load('Sun_9.png'))
+        self.sprites.append(pygame.image.load('Sun_10.png'))
+        self.sprites.append(pygame.image.load('Sun_11.png'))
+        self.sprites.append(pygame.image.load('Sun_12.png'))
+        self.sprites.append(pygame.image.load('Sun_13.png'))
+        self.sprites.append(pygame.image.load('Sun_14.png'))
+        self.sprites.append(pygame.image.load('Sun_15.png'))
+        self.sprites.append(pygame.image.load('Sun_16.png'))
+        self.sprites.append(pygame.image.load('Sun_17.png'))
+        self.sprites.append(pygame.image.load('Sun_18.png'))
+        self.sprites.append(pygame.image.load('Sun_19.png'))
+        self.sprites.append(pygame.image.load('Sun_20.png'))
+
+        self.current_sprite = 0
+        self.image = self.sprites[self.current_sprite]
+
+        
+        
 
     def update(self):
         # Atualizando a posição do sol
         self.rect.x -= self.speedx
         self.rect.y += self.speedy
-        if self.rect.y > random.randint(150,600) :
+        if self.rect.y > 300 :
             self.speedy = 0
             self.speedx = 0
+        self.current_sprite += 1
+        if self.current_sprite >= len(self.sprites):
+            self.current_sprite = 0
+
+        self.image = self.sprites[self.current_sprite]
 
 
 
@@ -157,6 +190,24 @@ class plantas(pygame.sprite.Sprite):
         self.all_bullets = all_bullets
         self.bullet_img = bullet_img
 
+        self.sprites = []
+        self.sprites.append(pygame.image.load('Peashooter_0.png'))
+        self.sprites.append(pygame.image.load('Peashooter_1.png'))
+        self.sprites.append(pygame.image.load('Peashooter_2.png'))
+        self.sprites.append(pygame.image.load('Peashooter_3.png'))
+        self.sprites.append(pygame.image.load('Peashooter_4.png'))
+        self.sprites.append(pygame.image.load('Peashooter_5.png'))
+        self.sprites.append(pygame.image.load('Peashooter_6.png'))
+        self.sprites.append(pygame.image.load('Peashooter_7.png'))
+        self.sprites.append(pygame.image.load('Peashooter_8.png'))
+        self.sprites.append(pygame.image.load('Peashooter_9.png'))
+        self.sprites.append(pygame.image.load('Peashooter_10.png'))
+        self.sprites.append(pygame.image.load('Peashooter_11.png'))
+        self.sprites.append(pygame.image.load('Peashooter_12.png'))
+
+        self.current_sprite = 0
+        self.image = self.sprites[self.current_sprite]
+
 
     def update(self):
         # Atualizando a posição da planta
@@ -167,6 +218,11 @@ class plantas(pygame.sprite.Sprite):
             self.rect.bottom = HEIGHT
         if self.rect.top < 0:
             self.rect.top = 0
+        self.current_sprite += 1
+        if self.current_sprite >= len(self.sprites):
+            self.current_sprite = 0
+
+        self.image = self.sprites[self.current_sprite]
 
     def shoot(self):
         # A nova bala sera criada no centro vertical da planta (um pouco acima para encaixar na boca)
@@ -250,7 +306,7 @@ for i in range (10):
 
 # Criando grupo de sois 
 suns = pygame.sprite.Group()
-for i in range (10):
+for i in range (1):
     sol = sun(sun_img)
     suns.add(sol)
 
@@ -288,12 +344,17 @@ while game:
     for kills in hs: # As chaves são os elementos do primeiro grupo (meteoros) que colidiram com alguma bala
         # O meteoro e destruido e precisa ser recriado
         assets['hit_sound'].play()
+        m = zumbis(img)
+        all_sprites.add(m)
+        zombies.add(m)
+        
+
 
 
         
 
 
-    hits = pygame.sprite.spritecollide(player, zombies, True)
+    
     # atualiza a posição dos zumbis
     
     suns.update()
@@ -309,23 +370,12 @@ while game:
     #desenha os elementos
     all_sprites.draw(window)
     
-
-    
-
-    
-    
-    
     suns.draw(window)
 
     moving_sprites = pygame.sprite.Group()
     moving_sprites.update()
 
     
-
-
-
-
-
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
 
