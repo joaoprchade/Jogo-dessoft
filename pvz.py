@@ -68,11 +68,39 @@ class zumbis(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = 800
+        self.rect.x = 1800
         self.rect.y = random.choice(spawns_z)
         self.speedx = random.randint(1,10)
         self.speedy = 0
 
+        # animaçao zumbis
+        self.sprites = []
+        self.sprites.append(pygame.image.load('Zombie_0.png'))
+        self.sprites.append(pygame.image.load('Zombie_1.png'))
+        self.sprites.append(pygame.image.load('Zombie_2.png'))
+        self.sprites.append(pygame.image.load('Zombie_3.png'))
+        self.sprites.append(pygame.image.load('Zombie_4.png'))
+        self.sprites.append(pygame.image.load('Zombie_5.png'))
+        self.sprites.append(pygame.image.load('Zombie_6.png'))
+        self.sprites.append(pygame.image.load('Zombie_7.png'))
+        self.sprites.append(pygame.image.load('Zombie_8.png'))
+        self.sprites.append(pygame.image.load('Zombie_9.png'))
+        self.sprites.append(pygame.image.load('Zombie_10.png'))
+        self.sprites.append(pygame.image.load('Zombie_11.png'))
+        self.sprites.append(pygame.image.load('Zombie_12.png'))
+        self.sprites.append(pygame.image.load('Zombie_13.png'))
+        self.sprites.append(pygame.image.load('Zombie_14.png'))
+        self.sprites.append(pygame.image.load('Zombie_15.png'))
+        self.sprites.append(pygame.image.load('Zombie_16.png'))
+        self.sprites.append(pygame.image.load('Zombie_17.png'))
+        self.sprites.append(pygame.image.load('Zombie_18.png'))
+        self.sprites.append(pygame.image.load('Zombie_19.png'))
+        self.sprites.append(pygame.image.load('Zombie_20.png'))
+
+        self.current_sprite = 0
+        self.image = self.sprites[self.current_sprite]
+
+        self.rect = self.image.get_rect()
 
     def update(self):
         # Atualizando a posição do zumbi
@@ -83,6 +111,12 @@ class zumbis(pygame.sprite.Sprite):
             self.rect.y = random.choice(spawns_z)
             self.speedx = random.randint(1,10)
             self.speedy = 0
+
+        self.current_sprite += 1
+        if self.current_sprite >= len(self.sprites):
+            self.current_sprite = 0
+
+        self.image = self.sprites[self.current_sprite]
 
 
 class sun(pygame.sprite.Sprite):
@@ -283,6 +317,8 @@ while game:
     
     suns.draw(window)
 
+    moving_sprites = pygame.sprite.Group()
+    moving_sprites.update()
 
     
 
