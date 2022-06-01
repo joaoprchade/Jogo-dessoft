@@ -33,7 +33,7 @@ PLANT_HEIGHT = 55
 
 assets['planta_img'] = pygame.image.load('planta.png').convert_alpha()
 assets['planta_img'] = pygame.transform.scale(assets['planta_img'] , (PLANT_WIDHT, PLANT_HEIGHT))
-assets['bullet_img'] = pygame.image.load('tiro.png').convert_alpha()
+assets['bullet_img'] = pygame.image.load('tiro.png').convert_alpha() 
 
 dance = []
 for i in range(12):
@@ -43,12 +43,6 @@ for i in range(12):
     img = pygame.transform.scale(img, (32, 32))
     dance.append(img)
     assets['dance'] = dance
-
-
-
-
-
-
 
 #muisc
 pygame.mixer.music.load('theme.mp3')
@@ -61,13 +55,14 @@ sun_img = pygame.image.load('sol.png').convert_alpha()
 sun_img = pygame.transform.scale(sun_img, (SUN_WIDTH, SUN_HEIGHT))
 
 
-class zumbis(pygame.sprite.Sprite):
+class Zumbis(pygame.sprite.Sprite):
     def __init__(self, img):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = 1800
         self.rect.y = random.choice(spawns_z)
         self.speedx = random.randint(1,6)
@@ -113,13 +108,15 @@ class zumbis(pygame.sprite.Sprite):
             self.speedy = 0
 
         self.current_sprite += 1
+
         if self.current_sprite >= len(self.sprites):
             self.current_sprite = 0
+            
 
         self.image = self.sprites[self.current_sprite]
 
 
-class sun(pygame.sprite.Sprite):
+class Sun(pygame.sprite.Sprite):
     def __init__(self, img):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
@@ -127,6 +124,7 @@ class sun(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = random.choice(spawns_s)
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.y = 0
         self.speedx = 0
         self.speedy = random.randint(1,6)
@@ -157,9 +155,6 @@ class sun(pygame.sprite.Sprite):
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
 
-        
-        
-
     def update(self):
         # Atualizando a posição do sol
         self.rect.x -= self.speedx
@@ -173,15 +168,14 @@ class sun(pygame.sprite.Sprite):
 
         self.image = self.sprites[self.current_sprite]
 
-
-
-class plantas(pygame.sprite.Sprite):
+class Plantas(pygame.sprite.Sprite):
     def __init__(self, img, all_sprites, all_bullets, bullet_img):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.right = 160
         self.rect.centery = HEIGHT /2
         
@@ -252,22 +246,6 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.left < 0:
             self.kill()
 
-
-
-        
-
-
-
-game = True
-        
-        
-
-
-
-
-
-
-
 #spawns (linha1,linha2...)! em y !!
 l1 = 35
 l2 = 115
@@ -291,15 +269,13 @@ all_sprites = pygame.sprite.Group()
 all_bullets = pygame.sprite.Group()
 
 #criando a planta
-player = plantas(assets['planta_img'], all_sprites, all_bullets, assets['bullet_img'])
+player = Plantas(assets['planta_img'], all_sprites, all_bullets, assets['bullet_img'])
 all_sprites.add(player)
-
-
 
 # Criando grupo de zumbis
 zombies = pygame.sprite.Group()
 for i in range (10):
-    zumbi = zumbis(assets['zumbi_img'])
+    zumbi = Zumbis(assets['zumbi_img'])
     all_sprites.add(zumbi)
     zombies.add(zumbi)
 
@@ -307,12 +283,10 @@ for i in range (10):
 # Criando grupo de sois 
 suns = pygame.sprite.Group()
 for i in range (1):
-    sol = sun(sun_img)
+    sol = Sun(sun_img)
     suns.add(sol)
 
-
-
-
+lives = 10
 
 # ===== Loop principal ======
 pygame.mixer.music.play(loops=-1)
@@ -341,26 +315,19 @@ while game:
                 player.speedy -= 8
 
     hs = pygame.sprite.groupcollide(zombies, all_bullets, True, True) 
-    for kills in hs: # As chaves são os elementos do primeiro grupo (meteoros) que colidiram com alguma bala
-        # O meteoro e destruido e precisa ser recriado
+    for kills in hs: # As chaves são os elementos do primeiro grupo (zumbis) que colidiram com alguma bala
+        # O zumbi e destruido e precisa ser recriado
         assets['hit_sound'].play()
-        m = zumbis(img)
+        m = Zumbis(img)
         all_sprites.add(m)
         zombies.add(m)
-        
+    '''if self.rect.x < 0:
+        player.kill()
+        lives -= 1'''
 
-
-
-        
-
-
-    
-    # atualiza a posição dos zumbis
-    
+    # atualiza a posição dos sois
     suns.update()
     all_sprites.update()
-    
-    
     
     # ----- Gera saídas
 
@@ -375,7 +342,6 @@ while game:
     moving_sprites = pygame.sprite.Group()
     moving_sprites.update()
 
-    
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
 
