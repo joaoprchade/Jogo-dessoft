@@ -301,6 +301,8 @@ def draw_text(texto,font,cor,x,y):
     img = font.render(texto,True,cor)
     window.blit(img,(x,y))
 
+vel_p = 8
+
 # ===== Loop principal ======
 pygame.mixer.music.play(loops=-1)
 while game:
@@ -318,24 +320,28 @@ while game:
         if event.type == pygame.KEYDOWN:
             # Dependendo da tecla, altera a velocidade.
             if event.key == pygame.K_w:
-                player.speedy -= 8
+                player.speedy -= vel_p
             if event.key == pygame.K_s:
-                player.speedy += 8
+                player.speedy += vel_p
             if event.key == pygame.K_SPACE:
                 player.shoot()
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
             # Dependendo da tecla, altera a velocidade.
             if event.key == pygame.K_w:
-                player.speedy += 8
+                player.speedy += vel_p
             if event.key == pygame.K_s:
-                player.speedy -= 8
+                player.speedy -= vel_p
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_p and sol.rect.y > 15:
                 sol.rect.y =  -500
                 sol.rect.x = random.choice(spawns_s)
                 sol.speedy = random.randint(1,6)   
                 qtd_sois += 25
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_u and qtd_sois >= 100:
+                vel_p += 2 
+                qtd_sois -=100
                        
         
 
