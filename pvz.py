@@ -4,6 +4,8 @@
 import pygame
 import random
 
+
+
 pygame.init()
 pygame.mixer.init()
 
@@ -16,6 +18,7 @@ pygame.display.set_caption('Lsvmsss')
 assets = {}
 # ----- Inicia estruturas de dados
 game = True
+font = pygame.font.SysFont('Pokemon GB.ttf',60)
 
 # ----- Inicia assets
 assets['image'] = pygame.image.load('mapa.jpg').convert()
@@ -34,6 +37,8 @@ PLANT_HEIGHT = 55
 assets['planta_img'] = pygame.image.load('planta.png').convert_alpha()
 assets['planta_img'] = pygame.transform.scale(assets['planta_img'] , (PLANT_WIDHT, PLANT_HEIGHT))
 assets['bullet_img'] = pygame.image.load('tiro.png').convert_alpha() 
+
+
 
 dance = []
 for i in range(12):
@@ -54,15 +59,17 @@ SUN_HEIGHT = 225*0.2
 sun_img = pygame.image.load('sol.png').convert_alpha()
 sun_img = pygame.transform.scale(sun_img, (SUN_WIDTH, SUN_HEIGHT))
 
+qtd_sois = 0
 
 class Zumbis(pygame.sprite.Sprite):
-    def __init__(self, img):
+    def __init__(self, img, x, y):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
 
+        self.rect = ((x, y),(150, 150))
         self.image = img
         self.rect = self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
+        #self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = 1800
         self.rect.y = random.choice(spawns_z)
         self.speedx = random.randint(1,6)
@@ -124,10 +131,10 @@ class Sun(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = random.choice(spawns_s)
-        self.mask = pygame.mask.from_surface(self.image)
-        self.rect.y = 0
+        #self.mask = pygame.mask.from_surface(self.image)
+        self.rect.y = -500
         self.speedx = 0
-        self.speedy = random.randint(1,6)
+        self.speedy = random.randint(1,4)
 
         self.sprites = []
         self.sprites.append(pygame.image.load('Sun_0.png'))
@@ -175,7 +182,7 @@ class Plantas(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
+        #self.mask = pygame.mask.from_surface(self.image)
         self.rect.right = 160
         self.rect.centery = HEIGHT /2
         
@@ -232,6 +239,7 @@ class Bullet(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
 
         # Coloca no lugar inicial definido em x, y do constutor
         self.rect.centery = centery - 16
@@ -275,7 +283,7 @@ all_sprites.add(player)
 # Criando grupo de zumbis
 zombies = pygame.sprite.Group()
 for i in range (10):
-    zumbi = Zumbis(assets['zumbi_img'])
+    zumbi = Zumbis(assets['zumbi_img'], 1800, random.choice(spawns_z))
     all_sprites.add(zumbi)
     zombies.add(zumbi)
 
@@ -288,10 +296,19 @@ for i in range (1):
 
 lives = 10
 
+
+def draw_text(texto,font,cor,x,y):
+    img = font.render(texto,True,cor)
+    window.blit(img,(x,y))
+
 # ===== Loop principal ======
 pygame.mixer.music.play(loops=-1)
 while game:
+
+
     clock.tick(FPS)
+
+    draw_text('{}'.format(qtd_sois),font,(0,0,0),50,50)
     # ----- Trata eventos
     for event in pygame.event.get():
         # ----- Verifica consequências
@@ -300,25 +317,33 @@ while game:
         # Verifica se apertou alguma tecla.
         if event.type == pygame.KEYDOWN:
             # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_w:
                 player.speedy -= 8
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_s:
                 player.speedy += 8
             if event.key == pygame.K_SPACE:
                 player.shoot()
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
             # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_w:
                 player.speedy += 8
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_s:
                 player.speedy -= 8
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_p and sol.rect.y > 15:
+                sol.rect.y =  -500
+                sol.rect.x = random.choice(spawns_s)
+                sol.speedy = random.randint(1,6)   
+                qtd_sois += 25
+                       
+        
 
-    hs = pygame.sprite.groupcollide(zombies, all_bullets, True, True) 
+    hs = pygame.sprite.groupcollide(zombies, all_bullets, True, True,pygame.sprite.collide_mask) 
     for kills in hs: # As chaves são os elementos do primeiro grupo (zumbis) que colidiram com alguma bala
         # O zumbi e destruido e precisa ser recriado
         assets['hit_sound'].play()
-        m = Zumbis(img)
+        m = Zumbis(img, 1800, random.choice(spawns_z))
         all_sprites.add(m)
         zombies.add(m)
     '''if self.rect.x < 0:
@@ -333,12 +358,17 @@ while game:
 
     #faz o mapa
     window.blit(assets['image'], (0, 0)) #mapa
+
+    
+    
+
     
     #desenha os elementos
     all_sprites.draw(window)
     
     suns.draw(window)
-
+    draw_text('{} '.format(qtd_sois),font,(255,255,0),50,50)
+    window.blit(sun_img,(10,45))
     moving_sprites = pygame.sprite.Group()
     moving_sprites.update()
 
