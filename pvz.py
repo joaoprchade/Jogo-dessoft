@@ -60,7 +60,7 @@ sun_img = pygame.image.load('sol.png').convert_alpha()
 sun_img = pygame.transform.scale(sun_img, (SUN_WIDTH, SUN_HEIGHT))
 
 qtd_sois = 0
-
+la = 1
 class Zumbis(pygame.sprite.Sprite):
     def __init__(self, img, x, y):
         # Construtor da classe mãe (Sprite).
@@ -72,7 +72,7 @@ class Zumbis(pygame.sprite.Sprite):
         #self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = 1800
         self.rect.y = random.choice(spawns_z)
-        self.speedx = random.randint(1,6)
+        self.speedx = random.randint(1,6) * la
         self.speedy = 0
 
         # animaçao zumbis
@@ -134,7 +134,7 @@ class Sun(pygame.sprite.Sprite):
         #self.mask = pygame.mask.from_surface(self.image)
         self.rect.y = -500
         self.speedx = 0
-        self.speedy = random.randint(1,4)
+        self.speedy = random.randint(1,4) 
 
         self.sprites = []
         self.sprites.append(pygame.image.load('Sun_0.png'))
