@@ -4,8 +4,6 @@
 import pygame
 import random
 
-
-
 pygame.init()
 pygame.mixer.init()
 
@@ -17,10 +15,12 @@ pygame.display.set_caption('Lsvmsss')
 
 assets = {}
 # ----- Inicia estruturas de dados
-game = True
 font = pygame.font.SysFont('Pokemon GB.ttf',60)
 
 # ----- Inicia assets
+assets['menu_img'] = pygame.image.load('menu.png').convert()
+assets['menu_img'] = pygame.transform.scale(assets['menu_img'], (WIDTH, HEIGHT))
+
 assets['image'] = pygame.image.load('mapa.jpg').convert()
 assets['image'] = pygame.transform.scale(assets['image'], (WIDTH, HEIGHT))
 
@@ -267,8 +267,6 @@ spawns_s = [60, 60*2, 60*3, 60*4 , 60*5 , 60*6, 60*7 , 60*8, 60*9, 600 ]
 sol_y = - 10
 sol_x = random.choice(spawns_s)
 
-
-
 #define os fps
 clock = pygame.time.Clock()
 FPS = 30
@@ -287,7 +285,6 @@ for i in range (10):
     all_sprites.add(zumbi)
     zombies.add(zumbi)
 
-
 # Criando grupo de sois 
 suns = pygame.sprite.Group()
 for i in range (1):
@@ -296,90 +293,108 @@ for i in range (1):
 
 lives = 10
 
-
 def draw_text(texto,font,cor,x,y):
     img = font.render(texto,True,cor)
     window.blit(img,(x,y))
 
-vel_p = 8
+vel_px = 8
+vel_py = 8
 
 # ===== Loop principal ======
 pygame.mixer.music.play(loops=-1)
+
+game = True
+menu = True
+jogo = False
+
 while game:
 
+    while menu:
+         # ----- Trata eventos
+        for event in pygame.event.get():
+            # ----- Verifica consequências
+            if event.type == pygame.QUIT:
+                game = False
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    jogo = True
+                    menu = False
+         # ----- Gera saídas
+        #faz o mapa
+        window.blit(assets['menu_img'], (0, 0)) #mapa
+        # ----- Atualiza estado do jogo
+        pygame.display.update()  # Mostra o novo frame para o jogador
+    
+    while jogo:
+        clock.tick(FPS)
 
-    clock.tick(FPS)
+        draw_text('{}'.format(qtd_sois),font,(0,0,0),50,50)
+        # ----- Trata eventos
+        for event in pygame.event.get():
+            # ----- Verifica consequências
+            if event.type == pygame.QUIT:
+                game = False
+                pygame.quit()
 
-    draw_text('{}'.format(qtd_sois),font,(0,0,0),50,50)
-    # ----- Trata eventos
-    for event in pygame.event.get():
-        # ----- Verifica consequências
-        if event.type == pygame.QUIT:
-            game = False
-        # Verifica se apertou alguma tecla.
-        if event.type == pygame.KEYDOWN:
-            # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_w:
-                player.speedy -= vel_p
-            if event.key == pygame.K_s:
-                player.speedy += vel_p
-            if event.key == pygame.K_SPACE:
-                player.shoot()
-        # Verifica se soltou alguma tecla.
-        if event.type == pygame.KEYUP:
-            # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_w:
-                player.speedy += vel_p
-            if event.key == pygame.K_s:
-                player.speedy -= vel_p
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_p and sol.rect.y > 15:
-                sol.rect.y =  -500
-                sol.rect.x = random.choice(spawns_s)
-                sol.speedy = random.randint(1,6)   
-                qtd_sois += 25
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_u and qtd_sois >= 100:
-                vel_p += 2 
-                qtd_sois -=100
-                       
+            # Verifica se apertou alguma tecla.
+            if event.type == pygame.KEYDOWN:
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_w:
+                    player.speedy -= vel_py
+                if event.key == pygame.K_s:
+                    player.speedy += vel_px
+                if event.key == pygame.K_SPACE:
+                    player.shoot()
+            # Verifica se soltou alguma tecla.
+            if event.type == pygame.KEYUP:
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_w:
+                    player.speedy += vel_py
+                if event.key == pygame.K_s:
+                    player.speedy -= vel_px
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p and sol.rect.y > 15:
+                    sol.rect.y =  -500
+                    sol.rect.x = random.choice(spawns_s)
+                    sol.speedy = random.randint(1,6)   
+                    qtd_sois += 25
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_u and qtd_sois >= 100:
+                    vel_py += 2
+                    vel_px += 2
+                    qtd_sois -=100
+                        
+        hs = pygame.sprite.groupcollide(zombies, all_bullets, True, True,pygame.sprite.collide_mask) 
+        for kills in hs: # As chaves são os elementos do primeiro grupo (zumbis) que colidiram com alguma bala
+            # O zumbi e destruido e precisa ser recriado
+            assets['hit_sound'].play()
+            m = Zumbis(img, 1800, random.choice(spawns_z))
+            all_sprites.add(m)
+            zombies.add(m)
+        '''if self.rect.x < 0:
+            player.kill()
+            lives -= 1'''
+
+        # atualiza a posição dos sois
+        suns.update()
+        all_sprites.update()
         
+        # ----- Gera saídas
+        #faz o mapa
+        window.blit(assets['image'], (0, 0)) #mapa
+        
+        #desenha os elementos
+        all_sprites.draw(window)
+        
+        suns.draw(window)
+        draw_text('{} '.format(qtd_sois),font,(255,255,0),50,50)
+        window.blit(sun_img,(10,45))
+        moving_sprites = pygame.sprite.Group()
+        moving_sprites.update()
 
-    hs = pygame.sprite.groupcollide(zombies, all_bullets, True, True,pygame.sprite.collide_mask) 
-    for kills in hs: # As chaves são os elementos do primeiro grupo (zumbis) que colidiram com alguma bala
-        # O zumbi e destruido e precisa ser recriado
-        assets['hit_sound'].play()
-        m = Zumbis(img, 1800, random.choice(spawns_z))
-        all_sprites.add(m)
-        zombies.add(m)
-    '''if self.rect.x < 0:
-        player.kill()
-        lives -= 1'''
-
-    # atualiza a posição dos sois
-    suns.update()
-    all_sprites.update()
-    
-    # ----- Gera saídas
-
-    #faz o mapa
-    window.blit(assets['image'], (0, 0)) #mapa
-
-    
-    
-
-    
-    #desenha os elementos
-    all_sprites.draw(window)
-    
-    suns.draw(window)
-    draw_text('{} '.format(qtd_sois),font,(255,255,0),50,50)
-    window.blit(sun_img,(10,45))
-    moving_sprites = pygame.sprite.Group()
-    moving_sprites.update()
-
-    # ----- Atualiza estado do jogo
-    pygame.display.update()  # Mostra o novo frame para o jogador
+        # ----- Atualiza estado do jogo
+        pygame.display.update()  # Mostra o novo frame para o jogador
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
