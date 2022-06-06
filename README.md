@@ -2,11 +2,27 @@
 
 Roteiro:
 
-- O que é
-    - Tower Defense (tipo PvZ).
-- Como funciona
-    - Você começa com 'x' dinheiros. Cada bixo de defesa custa um valor. A cada inimigo eliminado, você ganha uma certa quantia de dinheiro.
-    - Bixos melhores custam mais dinheiros.
-    - A cada wave, os inimigos ficam mais poderosos e diversos. Na última wave, além dos imimigos, um Lagostin Imenso e furioso entrará no campo (chefão).
-- Mapa
-    - Um caminho em que inimigos vão percorrendo e tentam chegar no fim do caminho. Quando chegam, desconta vida do jogador. Serão 5 caminhos quadriculados em paralelo na horizontal.
+O que é:
+
+    - Jogo de personagem que atira para matar inimigos que ficam vindo.
+
+Como funciona:
+
+    - O jogador controla uma planta, e tem como objetivo matar todos os zumbis sem que eles cheguem ao final do mapa.
+    - O jogador se move para cima e para baixo, podendo atirar a qualquer momento.
+    - Os zumbis, que possuem velocidades diferentes, andam da direita para a esquerda até chegarem ao final do mapa (esquerda).
+    - Irão cair sóis aleatoriamente na vertical. Se o jogador coletar o equivalente a 100 sóis (cada um valendo 25, ou seja, 4 sóis), ele pode dar um upgrade em sua planta, deixando-a mais rápida.
+    - Quanto mais tempo o jogador sobreviver, sem que os zumbis cheguem ao final do mapa, mais pontos ele fará.
+
+Controles:
+
+    - Movimento da planta:
+        - W: move para cima.
+        - S: move para baixo.
+        
+    - Tiro:
+        - SPACE: dispara tiros nos zumbis.
+        
+    - Coleta de sóis e upgrades:
+        - P: coleta sóis
+        - U: dá um upgrade de velocidade nas plantas (se o número de sóis for maior ou igual a 100)
