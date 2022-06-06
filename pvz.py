@@ -18,45 +18,45 @@ assets = {}
 font = pygame.font.SysFont('Pokemon GB.ttf',60)
 
 # ----- Inicia assets
-assets['menu_img'] = pygame.image.load('Jogo-dessoft/assets/Imagens/menu.png').convert()
+assets['menu_img'] = pygame.image.load('assets/Imagens/menu.png').convert()
 assets['menu_img'] = pygame.transform.scale(assets['menu_img'], (WIDTH, HEIGHT))
 
-assets['image'] = pygame.image.load('Jogo-dessoft/assets/Imagens/mapa.jpg').convert()
+assets['image'] = pygame.image.load('assets/Imagens/mapa.jpg').convert()
 assets['image'] = pygame.transform.scale(assets['image'], (WIDTH, HEIGHT))
 
 #imagem do zumbi
 ZUMBI_WIDTH = 225*0.5
 ZUMBI_HEIGHT = 225*0.5
-assets['zumbi_img'] = pygame.image.load('Jogo-dessoft/assets/Imagens/zumbi.png').convert_alpha()
+assets['zumbi_img'] = pygame.image.load('assets/Imagens/zumbi.png').convert_alpha()
 assets['zumbi_img'] = pygame.transform.scale(assets['zumbi_img'], (ZUMBI_WIDTH, ZUMBI_HEIGHT))
 
 #planta e tiro
 PLANT_WIDHT = 55
 PLANT_HEIGHT = 55
 
-assets['planta_img'] = pygame.image.load('Jogo-dessoft/assets/Imagens/planta.png').convert_alpha()
+assets['planta_img'] = pygame.image.load('assets/Imagens/planta.png').convert_alpha()
 assets['planta_img'] = pygame.transform.scale(assets['planta_img'] , (PLANT_WIDHT, PLANT_HEIGHT))
-assets['bullet_img'] = pygame.image.load('Jogo-dessoft/assets/Imagens/tiro.png').convert_alpha() 
+assets['bullet_img'] = pygame.image.load('assets/Imagens/tiro.png').convert_alpha() 
 
 
 
 dance = []
 for i in range(12):
     # Os arquivos de animação são numerados de 00 a 12
-    filename = 'Jogo-dessoft/assets/Imagens/Peashooter_{}.png'.format(i)
+    filename = 'assets/Imagens/Peashooter_{}.png'.format(i)
     img = pygame.image.load(filename).convert()
     img = pygame.transform.scale(img, (32, 32))
     dance.append(img)
     assets['dance'] = dance
 
 #muisc
-pygame.mixer.music.load('Jogo-dessoft/assets/Imagens/theme.mp3')
+pygame.mixer.music.load('assets/Imagens/theme.mp3')
 pygame.mixer.music.set_volume(0.2)
-assets['hit_sound'] = pygame.mixer.Sound('Jogo-dessoft/assets/Imagens/hit.mp3')
+assets['hit_sound'] = pygame.mixer.Sound('assets/Imagens/hit.mp3')
 #sol
 SUN_WIDTH = 225*0.2
 SUN_HEIGHT = 225*0.2
-sun_img = pygame.image.load('Jogo-dessoft/assets/Imagens/sol.png').convert_alpha()
+sun_img = pygame.image.load('assets/Imagens/sol.png').convert_alpha()
 sun_img = pygame.transform.scale(sun_img, (SUN_WIDTH, SUN_HEIGHT))
 
 qtd_sois = 0
@@ -77,27 +77,27 @@ class Zumbis(pygame.sprite.Sprite):
 
         # animaçao zumbis
         self.sprites = []
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_0.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_1.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_2.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_3.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_4.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_5.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_6.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_7.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_8.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_9.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_10.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_11.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_12.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_13.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_14.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_15.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_16.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_17.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_18.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_19.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Zombie_20.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_0.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_1.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_2.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_3.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_4.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_5.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_6.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_7.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_8.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_9.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_10.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_11.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_12.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_13.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_14.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_15.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_16.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_17.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_18.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_19.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_20.png'))
 
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
@@ -137,27 +137,27 @@ class Sun(pygame.sprite.Sprite):
         self.speedy = random.randint(1,4) 
 
         self.sprites = []
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_0.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_1.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_2.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_3.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_4.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_5.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_6.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_7.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_8.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_9.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_10.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_11.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_12.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_13.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_14.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_15.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_16.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_17.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_18.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_19.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Sun_20.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_0.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_1.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_2.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_3.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_4.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_5.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_6.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_7.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_8.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_9.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_10.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_11.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_12.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_13.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_14.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_15.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_16.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_17.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_18.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_19.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_20.png'))
 
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
@@ -192,19 +192,19 @@ class Plantas(pygame.sprite.Sprite):
         self.bullet_img = bullet_img
 
         self.sprites = []
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_0.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_1.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_2.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_3.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_4.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_5.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_6.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_7.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_8.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_9.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_10.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_11.png'))
-        self.sprites.append(pygame.image.load('Jogo-dessoft/assets/Imagens/Peashooter_12.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_0.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_1.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_2.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_3.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_4.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_5.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_6.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_7.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_8.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_9.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_10.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_11.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Peashooter_12.png'))
 
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
