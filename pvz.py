@@ -18,7 +18,7 @@ assets = {}
 font = pygame.font.SysFont('Pokemon GB.ttf',60)
 
 # ----- Inicia assets
-assets['menu_img'] = pygame.image.load('assets/Imagens/menu.png').convert()
+assets['menu_img'] = pygame.image.load('assets/Imagens/menu_final.png').convert()
 assets['menu_img'] = pygame.transform.scale(assets['menu_img'], (WIDTH, HEIGHT))
 
 assets['image'] = pygame.image.load('assets/Imagens/mapa.jpg').convert()
