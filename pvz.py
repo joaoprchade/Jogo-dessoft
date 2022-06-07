@@ -17,6 +17,8 @@ assets = {}
 # ----- Inicia estruturas de dados
 font = pygame.font.SysFont('Pokemon GB.ttf',60)
 
+vidas = 3
+
 # ----- Inicia assets
 assets['menu_img'] = pygame.image.load('assets/Imagens/menu_final.png').convert()
 assets['menu_img'] = pygame.transform.scale(assets['menu_img'], (WIDTH, HEIGHT))
@@ -29,6 +31,14 @@ ZUMBI_WIDTH = 225*0.5
 ZUMBI_HEIGHT = 225*0.5
 assets['zumbi_img'] = pygame.image.load('assets/Imagens/zumbi.png').convert_alpha()
 assets['zumbi_img'] = pygame.transform.scale(assets['zumbi_img'], (ZUMBI_WIDTH, ZUMBI_HEIGHT))
+
+#spawns (linha1,linha2...)! em y !!
+l1 = 35
+l2 = 115
+l3 = 185
+l4 = 255
+l5 = 330
+spawns_z = [l1,l2,l3,l4,l5]
 
 #planta e tiro
 PLANT_WIDHT = 55
@@ -70,8 +80,6 @@ class Zumbis(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         #self.mask = pygame.mask.from_surface(self.image)
-        self.rect.x = 1800
-        self.rect.y = random.choice(spawns_z)
         self.speedx = random.randint(1,6) * la
         self.speedy = 0
 
@@ -83,7 +91,7 @@ class Zumbis(pygame.sprite.Sprite):
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_3.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_4.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_5.png'))
-        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_6.png'))
+        self.sprites.append  (pygame.image.load('assets/Imagens/Zombie_6.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_7.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_8.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_9.png'))
@@ -108,7 +116,7 @@ class Zumbis(pygame.sprite.Sprite):
         # Atualizando a posição do zumbi
         self.rect.x -= self.speedx
         self.rect.y += self.speedy
-        if self.rect.x < 0:
+        if self.rect.x < -100:
             self.rect.x = 800
             self.rect.y = random.choice(spawns_z)
             self.speedx = random.randint(3,10)
@@ -254,13 +262,6 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.left < 0:
             self.kill()
 
-#spawns (linha1,linha2...)! em y !!
-l1 = 35
-l2 = 115
-l3 = 185
-l4 = 255
-l5 = 330
-spawns_z = [l1,l2,l3,l4,l5]
 
 #spawns dos sois 
 spawns_s = [60, 60*2, 60*3, 60*4 , 60*5 , 60*6, 60*7 , 60*8, 60*9, 600 ]
@@ -372,9 +373,9 @@ while game:
             m = Zumbis(img, 1800, random.choice(spawns_z))
             all_sprites.add(m)
             zombies.add(m)
-        '''if self.rect.x < 0:
-            player.kill()
-            lives -= 1'''
+            zombies.update()
+        '''if vidas == 0:
+            pygame.quit()'''
 
         # atualiza a posição dos sois
         suns.update()
