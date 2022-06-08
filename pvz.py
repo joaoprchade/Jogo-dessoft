@@ -17,7 +17,7 @@ assets = {}
 # ----- Inicia estruturas de dados
 font = pygame.font.SysFont('Pokemon GB.ttf',60)
 
-vidas = 3
+
 
 # ----- Inicia assets
 assets['menu_img'] = pygame.image.load('assets/Imagens/menu_final.png').convert()
@@ -73,15 +73,17 @@ qtd_sois = 0
 la = 1
 class Zumbis(pygame.sprite.Sprite):
     def __init__(self, img, x, y):
+        self.vivo = False
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
+        
 
         self.rect = ((x, y),(150, 150))
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = 1800
         self.rect.y = random.choice(spawns_z)
-
+        
         #self.mask = pygame.mask.from_surface(self.image)
         self.speedx = random.randint(1,6) * la
         self.speedy = 0
@@ -94,7 +96,7 @@ class Zumbis(pygame.sprite.Sprite):
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_3.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_4.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_5.png'))
-        self.sprites.append  (pygame.image.load('assets/Imagens/Zombie_6.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_6.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_7.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_8.png'))
         self.sprites.append(pygame.image.load('assets/Imagens/Zombie_9.png'))
@@ -124,6 +126,12 @@ class Zumbis(pygame.sprite.Sprite):
             self.rect.y = random.choice(spawns_z)
             self.speedx = random.randint(3,10)
             self.speedy = 0
+            if self.vivo:
+                vidas.vidas -= 1
+                self.vivo = False
+        else:
+            self.vivo = True
+        print(vidas.vidas)
 
         self.current_sprite += 1
 
@@ -265,6 +273,8 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.left < 0:
             self.kill()
 
+class vidas:
+    vidas = 3
 
 #spawns dos sois 
 spawns_s = [60, 60*2, 60*3, 60*4 , 60*5 , 60*6, 60*7 , 60*8, 60*9, 600 ]
@@ -284,7 +294,7 @@ all_sprites.add(player)
 
 # Criando grupo de zumbis
 zombies = pygame.sprite.Group()
-for i in range (10):
+for i in range (5):
     zumbi = Zumbis(assets['zumbi_img'], 1800, random.choice(spawns_z))
     all_sprites.add(zumbi)
     zombies.add(zumbi)
@@ -307,12 +317,15 @@ vel_py = 8
 # ===== Loop principal ======
 pygame.mixer.music.play(loops=-1)
 
+
+
 game = True
 menu = True
 jogo = False
 
 while game:
 
+    vidas.vidas = 3
     while menu:
          # ----- Trata eventos
         for event in pygame.event.get():
@@ -332,7 +345,9 @@ while game:
     
     while jogo:
         clock.tick(FPS)
-
+    
+        if vidas.vidas == 0:
+            pygame.quit()
         draw_text('{}'.format(qtd_sois),font,(0,0,0),50,50)
         # ----- Trata eventos
         for event in pygame.event.get():
