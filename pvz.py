@@ -79,6 +79,9 @@ class Zumbis(pygame.sprite.Sprite):
         self.rect = ((x, y),(150, 150))
         self.image = img
         self.rect = self.image.get_rect()
+        self.rect.x = 1800
+        self.rect.y = random.choice(spawns_z)
+
         #self.mask = pygame.mask.from_surface(self.image)
         self.speedx = random.randint(1,6) * la
         self.speedy = 0
@@ -116,7 +119,7 @@ class Zumbis(pygame.sprite.Sprite):
         # Atualizando a posição do zumbi
         self.rect.x -= self.speedx
         self.rect.y += self.speedy
-        if self.rect.x < -100:
+        if self.rect.x < 0:
             self.rect.x = 800
             self.rect.y = random.choice(spawns_z)
             self.speedx = random.randint(3,10)
