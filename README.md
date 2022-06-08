@@ -6,6 +6,10 @@ O que é:
 
     - Jogo de personagem que atira para matar inimigos que ficam vindo.
 
+Gráficos:
+
+     - O jogo conta com animações em todos os personagens (zumbis, planta e sol - as animações foram todas feitas por nós), assim como uma música tema (extraída do jogo Plants vs Zombies), sons quando os zumbis morrem (gravados por nós), e uma tela inicial e final autorais.
+
 Como funciona:
 
     - O jogador controla uma planta, e tem como objetivo matar todos os zumbis sem que eles cheguem ao final do mapa.
@@ -15,8 +19,10 @@ Como funciona:
     - Os zumbis, que possuem velocidades diferentes, andam da direita para a esquerda até chegarem ao final do mapa (esquerda).
     
     - Irão cair sóis aleatoriamente na vertical. Se o jogador coletar o equivalente a 100 sóis (cada um valendo 25, ou seja, 4 sóis), ele pode dar um upgrade em sua planta, deixando-a mais rápida.
-    
-    - Quanto mais tempo o jogador sobreviver, sem que os zumbis cheguem ao final do mapa, mais pontos ele fará.
+
+Como jogar:
+
+    - Para jogar, basta baixar o repositório, acessar o arquivo 'pvz.py' e rodá-lo.
 
 Controles:
 
