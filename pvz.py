@@ -1,6 +1,7 @@
 # ===== Inicialização =====
 # ----- Importa e inicia pacotes
 # lagostinha
+from typing import final
 import pygame
 import random
 
@@ -25,6 +26,9 @@ assets['menu_img'] = pygame.transform.scale(assets['menu_img'], (WIDTH, HEIGHT))
 
 assets['image'] = pygame.image.load('assets/Imagens/mapa.jpg').convert()
 assets['image'] = pygame.transform.scale(assets['image'], (WIDTH, HEIGHT))
+
+assets['game_over'] = pygame.image.load('assets/Imagens/game_over.png').convert()
+assets['game_over'] = pygame.transform.scale(assets['game_over'], (WIDTH, HEIGHT))
 
 #imagem do zumbi
 ZUMBI_WIDTH = 225*0.5
@@ -131,7 +135,6 @@ class Zumbis(pygame.sprite.Sprite):
                 self.vivo = False
         else:
             self.vivo = True
-        print(vidas.vidas)
 
         self.current_sprite += 1
 
@@ -348,6 +351,8 @@ while game:
     
         if vidas.vidas == 0:
             pygame.quit()
+        print(vidas.vidas)
+
         draw_text('{}'.format(qtd_sois),font,(0,0,0),50,50)
         # ----- Trata eventos
         for event in pygame.event.get():
