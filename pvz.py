@@ -308,8 +308,6 @@ for i in range (1):
     sol = Sun(sun_img)
     suns.add(sol)
 
-lives = 10
-
 def draw_text(texto,font,cor,x,y):
     img = font.render(texto,True,cor)
     window.blit(img,(x,y))
@@ -325,6 +323,8 @@ pygame.mixer.music.play(loops=-1)
 game = True
 menu = True
 jogo = False
+end = False
+start = True
 
 while game:
 
@@ -340,18 +340,20 @@ while game:
                 if event.key == pygame.K_SPACE:
                     jogo = True
                     menu = False
+                    start = True
          # ----- Gera saídas
         #faz o mapa
         window.blit(assets['menu_img'], (0, 0)) #mapa
         # ----- Atualiza estado do jogo
         pygame.display.update()  # Mostra o novo frame para o jogador
-    
+
     while jogo:
         clock.tick(FPS)
     
         if vidas.vidas == 0:
-            pygame.quit()
-        print(vidas.vidas)
+            end = True
+            jogo = False
+            start = False
 
         draw_text('{}'.format(qtd_sois),font,(0,0,0),50,50)
         # ----- Trata eventos
@@ -419,6 +421,26 @@ while game:
 
         # ----- Atualiza estado do jogo
         pygame.display.update()  # Mostra o novo frame para o jogador
+
+        while end:
+            # ----- Trata eventos
+            for event in pygame.event.get():
+            # ----- Verifica consequências
+                if event.type == pygame.QUIT:
+                    game = False
+                    pygame.quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        jogo = True
+                        end = False
+                        vidas.vidas = 3
+                        qtd_sois = 0
+        
+            # ----- Gera saídas
+            #faz o mapa
+            window.blit(assets['game_over'], (0, 0)) #mapa
+            # ----- Atualiza estado do jogo
+            pygame.display.update()  # Mostra o novo frame para o jogador
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
