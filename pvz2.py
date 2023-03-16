@@ -85,52 +85,50 @@ la = 1
 
 
 class Personagem(pygame.sprite.Sprite):
-    def __init__(self, image, rect, current_sprite, sprites, speedy, x, y):
-
+    def __init__(self, img, rect, current_sprite, speedy, x, y):
         pygame.sprite.Sprite.__init__(self)
-
-        self.image = image
-        self.rect = self.image.get_rect()
-        self.speedy = speedy
+        self.image = img
+        self.rect = rect
         self.current_sprite = current_sprite
-        self.sprites = sprites
+        self.speedy = speedy
         self.rect.x = x
         self.rect.y = y
 
 
-# zumbi = Zumbis(assets['zumbi_img'], 1800, random.choice(spawns_z))
-
-
 class Zumbis(Personagem):
+    def __init__(self, img, x, y):
+        super().__init__(img, img.get_rect(), 0, 0, 1800, random.choice(spawns_z))
 
-    def __init__(self, image, x, y):
-        super().__init__(image, None, None, None, 0, x, y)
-
-        self.speedx = random.randint(1, 6) * la
         self.vivo = False
-
-        self.rect = ((x, y), (150, 150))
-        self.image = img
-        self.rect.x = 1800
-        self.rect.y = random.choice(spawns_z)
-
-        #self.mask = pygame.mask.from_surface(self.image)
-
-        self.speedy = 0
+        self.speedx = random.randint(1, 6) * la
 
         # animaçao zumbis
         self.sprites = []
-        self.aggregate_sprites()
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_0.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_1.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_2.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_3.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_4.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_5.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_6.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_7.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_8.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_9.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_10.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_11.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_12.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_13.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_14.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_15.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_16.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_17.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_18.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_19.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Zombie_20.png'))
 
-        self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
 
         self.rect = self.image.get_rect()
-
-    def aggregate_sprites(self):
-        for i in range(20 + 1):
-            self.sprites.append(pygame.image.load(
-                f'assets/Imagens/Zombie_{i}.png'))
 
     def update(self):
         # Atualizando a posição do zumbi
@@ -155,29 +153,37 @@ class Zumbis(Personagem):
         self.image = self.sprites[self.current_sprite]
 
 
-class Sun(pygame.sprite.Sprite):
+class Sun(Personagem):
     def __init__(self, img):
-        # Construtor da classe mãe (Sprite).
-        pygame.sprite.Sprite.__init__(self)
+        super().__init__(img, img.get_rect(), 0,
+                         random.randint(1, 4), random.choice(spawns_s), -500)
 
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = random.choice(spawns_s)
-        #self.mask = pygame.mask.from_surface(self.image)
-        self.rect.y = -500
         self.speedx = 0
-        self.speedy = random.randint(1, 4)
 
         self.sprites = []
-        self.aggregate_sprites()
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_0.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_1.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_2.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_3.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_4.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_5.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_6.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_7.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_8.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_9.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_10.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_11.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_12.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_13.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_14.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_15.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_16.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_17.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_18.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_19.png'))
+        self.sprites.append(pygame.image.load('assets/Imagens/Sun_20.png'))
 
-        self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
-
-    def aggregate_sprites(self):
-        for i in range(20 + 1):
-            self.sprites.append(pygame.image.load(
-                f'assets/Imagens/Sun_{i}.png'))
 
     def update(self):
         # Atualizando a posição do sol
@@ -193,31 +199,43 @@ class Sun(pygame.sprite.Sprite):
         self.image = self.sprites[self.current_sprite]
 
 
-class Plantas(pygame.sprite.Sprite):
+class Plantas(Personagem):
     def __init__(self, img, all_sprites, all_bullets, bullet_img):
         # Construtor da classe mãe (Sprite).
-        pygame.sprite.Sprite.__init__(self)
+        super().__init__(img, img.get_rect(), 0, 0, 160, HEIGHT / 2)
 
-        self.image = img
-        self.rect = self.image.get_rect()
-        #self.mask = pygame.mask.from_surface(self.image)
-        self.rect.x = 160
-        self.rect.y = HEIGHT / 2
-
-        self.speedy = 0
         self.all_sprites = all_sprites
         self.all_bullets = all_bullets
         self.bullet_img = bullet_img
 
         self.sprites = []
-        self.aggregate_sprites()
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_0.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_1.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_2.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_3.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_4.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_5.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_6.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_7.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_8.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_9.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_10.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_11.png'))
+        self.sprites.append(pygame.image.load(
+            'assets/Imagens/Peashooter_12.png'))
 
-    def aggregate_sprites(self):
-        for i in range(20 + 1):
-            self.sprites.append(pygame.image.load(
-                f'assets/Imagens/Peashooter_{i}.png'))
-
-        self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
 
     def update(self):
@@ -245,7 +263,7 @@ class Plantas(pygame.sprite.Sprite):
 class Bullet(pygame.sprite.Sprite):
     # Construtor da classe.
     def __init__(self, img, right, centery):
-        # Construtor da classe mãe (Sprite).
+
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
